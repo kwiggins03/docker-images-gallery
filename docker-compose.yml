@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./api
+    ports:
+      - 5050:5050
+    environment:
+      - UNSPLASH_KEY=${UNSPLASH_KEY}
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_API_URL=http://localhost:5050
+    ports:
+      - 3000:80
+    depends_on:
+      - api
